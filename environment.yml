@@ -1,0 +1,98 @@
+name: scaffolding
+channels:
+  - defaults
+  - conda-forge
+  - pytorch
+dependencies:
+  - python=3.6.*
+  # We need pytorch In order to use the allennlp package defined in scaffolding.
+  - pytorch=0.3.0
+  - pip:
+    ####                                            ####
+    #### ESSENTIAL LIBRARIES FOR MAIN FUNCTIONALITY ####
+    ####                                            ####
+    # Parameter parsing.
+    - pyhocon==0.3.35
+    # SotA NLP lib
+    # Type checking for python
+    - typing
+    # Adds an @overrides decorator for better documentation and error checking when using subclasses.
+    - overrides
+    # Used by some old code.  We moved away from it because it's too slow, but some old code still
+    # imports this.
+    - nltk
+    # Mainly used for the faster tokenizer.
+    - spacy>=2.0,<2.1
+    - https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.0.0/en_core_web_sm-2.0.0.tar.gz
+    # Used by span prediction models.
+    - numpy
+    # Used in coreference resolution evaluation metrics.
+    - scipy
+    - scikit-learn
+    # Training visualisation using tensorboard.
+    - tensorboard==1.0.0a6
+    # Required by torch.utils.ffi
+    - cffi==1.11.2
+    # aws commandline tools for running on Docker remotely.
+    - awscli>=1.11.91
+    # REST interface for models
+    - flask==0.12.3
+    - flask-cors==3.0.3
+    # Talk to postgres demo database
+    - psycopg2
+    - psycopg2-binary
+    ####                           ####
+    #### LIBRARIES USED IN SCRIPTS ####
+    ####                           ####
+    # argument parsing in for data cleaning scripts
+    - argparse
+    # Used for downloading datasets over HTTP
+    - requests>=2.18
+    # progress bars in data cleaning scripts
+    - tqdm
+    # In SQuAD eval script, we use this to see if we likely have some tokenization problem.
+    - editdistance
+    # Tutorial notebooks
+    - jupyter
+    # For pretrained model weights
+    - h5py
+    # For timezone utilities
+    - pytz==2017.3
+    ####                          ####
+    #### TESTING-RELATED PACKAGES ####
+    ####                          ####
+    # Checks style, syntax, and other useful errors.
+    - pylint==1.8.1
+    # We'll use pytest to run our tests; this isn't really necessary to run the code, but it is to run
+    # the tests.  With this here, you can run the tests with `py.test` from the base directory.
+    - pytest
+    # Static type checking
+    - mypy
+    # Makes it so that pytest can handle the code structure we use, with src/main/python, and src/test.
+    - pytest-pythonpath
+    # Allows generation of coverage reports with pytest.
+    - pytest-cov
+    # Allows marking tests as flaky, to be rerun if they fail
+    - flaky
+    # Allows codecov to generate coverage reports
+    - coverage
+    - codecov
+    # Required to run sanic tests
+    - aiohttp
+    # Required to mock out `requests` calls
+    - responses>=0.7
+    ####                      ####
+    #### DOC-RELATED PACKAGES ####
+    ####                      ####
+    # Builds our documentation.
+    - sphinx==1.5.3
+    # Watches the documentation directory and rebuilds on changes.
+    - sphinx-autobuild
+    # enables numpydoc formatting in sphinx
+    - numpydoc
+    # doc theme
+    - sphinx_rtd_theme
+    # Only used to convert our readme to reStructuredText on Pypi.
+    - pypandoc
+    # Pypi uploads
+    - twine
